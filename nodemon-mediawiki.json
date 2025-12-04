@@ -1,0 +1,24 @@
+{
+  "watch": [
+    "mediawiki-1.44.2/LocalSettings.php",
+    "mediawiki-1.44.2/includes/**/*.php",
+    "mediawiki-1.44.2/skins/**/*.php",
+    "mediawiki-1.44.2/router.php"
+  ],
+  "ext": "php,json,ini",
+  "ignore": [
+    "mediawiki-1.44.2/vendor/**",
+    "mediawiki-1.44.2/node_modules/**",
+    "mediawiki-1.44.2/cache/**",
+    "mediawiki-1.44.2/images/**",
+    "mediawiki-1.44.2/extensions/**",
+    "mediawiki-1.44.2/languages/**",
+    "mediawiki-1.44.2/resources/**",
+    "mediawiki-1.44.2/tests/**",
+    "mediawiki-1.44.2/docs/**",
+    "mediawiki-1.44.2/maintenance/**"
+  ],
+  "exec": "cd mediawiki-1.44.2 && php -d error_reporting='E_ALL & ~E_DEPRECATED & ~E_STRICT' -d display_errors=0 -d log_errors=1 -t . -S localhost:8080 router.php",
+  "delay": 1000
+}
+
