@@ -1,0 +1,36 @@
+{
+	"manifest_version": 2,
+	"name": "CampBackground",
+	"version": "1.0.0",
+	"author": "Camp Agawam",
+	"url": "",
+	"description": "Adds Camp Aerial Shot as background image",
+	"license-name": "GPL-2.0-or-later",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.40.0"
+	},
+	"ResourceModules": {
+		"ext.campBackground": {
+			"styles": {
+				"resources/custom-background.css": {
+					"media": "screen"
+				}
+			},
+			"scripts": [
+				"resources/campBackground.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "CampBackground"
+	},
+	"Hooks": {
+		"BeforePageDisplay": "CampBackground::onBeforePageDisplay"
+	},
+	"AutoloadClasses": {
+		"CampBackground": "includes/CampBackground.php"
+	}
+}
+
