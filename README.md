@@ -1,146 +1,303 @@
-# Agapedia
+# AgaPedia - MediaWiki Installation
 
-A Wikimedia-based knowledge platform that functions similarly to Wikipedia. This is a collaborative wiki platform built with React, Express.js, and PostgreSQL.
+AgaPedia is a MediaWiki-based knowledge base for camp information and documentation.
 
-## Tech Stack
+## What's Included
 
-- **Frontend**: React, Redux Toolkit, Tailwind CSS, React Router DOM
-- **Backend**: Node.js, Express.js
-- **Database**: PostgreSQL
-- **Authentication**: Passport.js (Local, Google OAuth, Apple Sign In)
-- **Real-time**: Socket.io
-- **Build Tool**: Create React App
+- **MediaWiki 1.44.2** - Latest stable version
+- **Custom Branding** - AgaPedia logo and styling
+- **VisualEditor** - WYSIWYG editor for easy content creation
+- **File Upload Support** - Upload images and documents (up to 100MB)
+- **PostgreSQL Database** - Production-ready database configuration
 
-## Getting Started
+## Deployment Options
 
-### Prerequisites
+### Option 1: Quick Deploy to Google Cloud (Recommended)
 
-- Node.js (latest LTS)
-- PostgreSQL (latest)
-- npm or yarn
+The fastest way to get AgaPedia online with automated setup.
 
-### Installation
+**Read:** [QUICKSTART.md](QUICKSTART.md)
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd agapedia
-```
+**Steps:**
+1. Install Google Cloud SDK
+2. Run `./deployment/deploy.sh`
+3. Complete the web-based installation wizard
+4. Your wiki is live!
 
-2. Install dependencies:
-```bash
-npm install
-```
+**Cost:** ~$10-20/month
 
-3. Set up environment variables:
-Create a `.env` file in the root directory:
-```env
-NODE_ENV=development
-REACT_APP_DB_host=localhost
-REACT_APP_DB_port=5432
-REACT_APP_DB_user=postgres
-REACT_APP_DB_password=postgres
-REACT_APP_DB_database=agapedia
-REACT_APP_SESSION_SECRET=your-secret-key-here
-```
+### Option 2: Manual GCP Deployment
 
-4. Set up the database:
-```bash
-# Create the database
-createdb agapedia
+For more control over the deployment process.
 
-# Database schema will be added as features are developed
-```
+**Read:** [DEPLOYMENT.md](DEPLOYMENT.md)
 
-5. Start the development server:
-```bash
-# Terminal 1: Start the backend server
-npm run server:dev
+Includes detailed step-by-step instructions for:
+- Setting up Cloud SQL
+- Configuring Compute Engine
+- Installing LAMP stack
+- Configuring HTTPS
+- Security hardening
 
-# Terminal 2: Start the React dev server
-npm run start:dev
-```
+### Option 3: Local Development
 
-The app will be available at:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
+For testing and development on your local machine.
+
+**Requirements:**
+- PHP 8.1+
+- PostgreSQL 12+ or MySQL/MariaDB
+- Apache or Nginx
+
+**Steps:**
+1. Set up local LAMP/LEMP stack
+2. Navigate to `http://localhost:8080/mediawiki-1.44.2/mw-config/`
+3. Complete the installation wizard
+4. Start editing!
 
 ## Project Structure
 
 ```
 agapedia/
-├── server/              # Backend server code
-│   ├── config/          # Configuration files
-│   ├── db/              # Database connection
-│   ├── loaders/         # Express and Passport loaders
-│   ├── routes/          # API routes
-│   ├── services/        # Business logic
-│   ├── queries/         # SQL queries
-│   └── socket/          # Socket.io setup
-├── src/                 # Frontend React code
-│   ├── components/      # React components
-│   ├── routes/          # Route components
-│   ├── store/           # Redux store
-│   ├── helpers/         # Helper functions
-│   ├── hooks/           # Custom React hooks
-│   ├── utils/           # Utility functions
-│   └── tests/           # Test files
-├── public/              # Static assets
-├── serverIndex.js       # Server entry point
-└── package.json         # Dependencies and scripts
+├── mediawiki-1.44.2/              # MediaWiki core files
+│   ├── .gcloudignore              # GCP deployment exclusions
+│   ├── resources/assets/          # Custom logo and images
+│   │   ├── camp-logo.png          # AgaPedia logo
+│   │   └── camp-background.jpg    # Background image
+│   ├── extensions/                # MediaWiki extensions
+│   ├── images/                    # Uploaded files directory
+│   └── ...
+├── deployment/                    # GCP deployment files
+│   ├── deploy.sh                  # Automated deployment script
+│   ├── startup-script.sh          # VM initialization script
+│   ├── apache-wiki.conf           # Apache configuration
+│   ├── LocalSettings.template.php # Configuration template
+│   └── README.md                  # Deployment documentation
+├── DEPLOYMENT.md                  # Detailed deployment guide
+├── QUICKSTART.md                  # Quick start guide
+└── README.md                      # This file
 ```
 
-## Available Scripts
+## Features
 
-- `npm start` - Start production server
-- `npm run start:dev` - Start React dev server with HTTPS
-- `npm run server:dev` - Start server with nodemon
-- `npm run build` - Build for production
-- `npm test` - Run tests
+### Pre-configured Extensions
+- **VisualEditor** - Visual editing interface
+- **Cite** - Citation support
+- **ParserFunctions** - Advanced template functions
+- **ImageMap** - Clickable image maps
+- **And many more...**
 
-## Documentation
+### Custom Configuration
+- Custom AgaPedia logo
+- 100MB file upload limit
+- PostgreSQL database support
+- Security hardening
+- Performance optimizations
 
-- `ARCHITECTURE.md` - Architecture documentation
-- `DATABASE_SCHEMA.md` - Database schema documentation
-- `TESTING_GUIDELINES.md` - Testing guidelines and best practices
-- `APP_SHELL_PROMPT.md` - App shell generation prompt (for reference)
+### Production-Ready
+- Automated backups (Cloud SQL)
+- HTTPS support (Let's Encrypt)
+- Scalable infrastructure
+- Monitoring and logging
 
-## Development
+## Getting Started
 
-This is currently an app shell with no business logic. The structure is in place and ready for feature development.
+### For Production Deployment
 
-### Adding Features
+1. **Choose your deployment method**
+   - Quick deploy: [QUICKSTART.md](QUICKSTART.md)
+   - Manual deploy: [DEPLOYMENT.md](DEPLOYMENT.md)
 
-1. Create route file in `server/routes/`
-2. Create service file in `server/services/`
-3. Create query file in `server/queries/`
-4. Create Redux reducer in `src/store/` (if needed)
-5. Create components in `src/components/[Feature]/`
-6. Add route in `src/components/App.js`
-7. Update documentation
+2. **Prepare your environment**
+   - Create GCP project
+   - Enable billing
+   - Install gcloud CLI
 
-### Database Changes
+3. **Deploy**
+   ```bash
+   cd /Users/williamnash/Desktop/Coding/repos/agapedia
+   ./deployment/deploy.sh
+   ```
 
-**IMPORTANT**: Always update `DATABASE_SCHEMA.md` immediately after making any database changes.
+4. **Configure**
+   - Complete installation wizard
+   - Add custom configurations
+   - Set up HTTPS
 
-## Testing
+5. **Go live!**
+   - Point your domain to the server
+   - Start creating content
 
-Run tests with:
+### For Local Development
+
+1. **Set up local server**
+   - Install MAMP, XAMPP, or equivalent
+   - Start Apache and PostgreSQL/MySQL
+
+2. **Access installation**
+   - Navigate to `http://localhost:8080/mediawiki-1.44.2/mw-config/`
+
+3. **Complete wizard**
+   - Configure database connection
+   - Set admin credentials
+   - Download LocalSettings.php
+
+4. **Start developing**
+   - Test features locally
+   - Develop custom extensions
+   - Create content
+
+## Post-Installation
+
+After deploying AgaPedia:
+
+### Essential Tasks
+- [ ] Create main page content
+- [ ] Set up user accounts
+- [ ] Configure user permissions
+- [ ] Upload initial content
+- [ ] Test file uploads
+- [ ] Test VisualEditor
+
+### Recommended Tasks
+- [ ] Set up automated backups
+- [ ] Configure HTTPS with domain
+- [ ] Install additional extensions as needed
+- [ ] Set up monitoring and alerts
+- [ ] Create style guide and documentation
+- [ ] Train content editors
+
+### Security Checklist
+- [ ] Use strong passwords
+- [ ] Enable HTTPS
+- [ ] Configure fail2ban
+- [ ] Set up automated updates
+- [ ] Review user permissions
+- [ ] Enable email notifications
+- [ ] Configure database SSL
+
+## Customization
+
+### Changing the Logo
+
+1. Replace files in `mediawiki-1.44.2/resources/assets/`:
+   - `camp-logo.png` - Main logo
+   - `camp-background.jpg` - Background image
+
+2. Update `LocalSettings.php`:
+   ```php
+   $wgLogos = [
+       '1x' => "$wgResourceBasePath/resources/assets/your-logo.png",
+       'icon' => "$wgResourceBasePath/resources/assets/your-icon.png",
+   ];
+   ```
+
+### Adding Extensions
+
+1. Download extension from [MediaWiki.org](https://www.mediawiki.org/wiki/Special:ExtensionDistributor)
+2. Extract to `mediawiki-1.44.2/extensions/`
+3. Add to `LocalSettings.php`:
+   ```php
+   wfLoadExtension( 'ExtensionName' );
+   ```
+
+### Modifying Appearance
+
+Edit `LocalSettings.php` to change:
+- Default skin
+- Custom CSS
+- Site name and description
+- Copyright information
+
+## Troubleshooting
+
+### Common Issues
+
+**Database connection failed**
+- Verify database credentials in LocalSettings.php
+- Check database server is running
+- Ensure database user has proper permissions
+
+**File uploads not working**
+- Check `images/` directory permissions
+- Verify PHP upload limits
+- Check Apache configuration
+
+**VisualEditor not loading**
+- Verify Parsoid is enabled
+- Check JavaScript console for errors
+- Clear browser cache
+
+**Wiki not accessible**
+- Verify Apache is running
+- Check firewall rules
+- Verify domain DNS settings
+
+### Getting Help
+
+- Check error logs: `/var/log/apache2/wiki_error.log`
+- MediaWiki documentation: https://www.mediawiki.org/wiki/Documentation
+- GCP support: https://cloud.google.com/support
+- Review deployment guides in this repository
+
+## Maintenance
+
+### Regular Tasks
+
+**Weekly:**
+- Review error logs
+- Check disk space
+- Monitor traffic and performance
+
+**Monthly:**
+- Update MediaWiki core
+- Update extensions
+- Review backups
+- Check security updates
+
+**Quarterly:**
+- Audit user accounts
+- Review permissions
+- Test restore from backup
+- Update documentation
+
+### Backup and Restore
+
+**Backup:**
 ```bash
-npm test
+# Database (automated with Cloud SQL)
+gcloud sql backups create --instance=agapedia-db
+
+# Files
+gcloud compute disks snapshot agapedia-vm --zone=us-central1-a
 ```
 
-See `TESTING_GUIDELINES.md` for testing best practices.
-
-## Deployment
-
-See `ARCHITECTURE.md` for deployment procedures and QA environment setup.
-
-## License
-
-[Add your license here]
+**Restore:**
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed restore procedures.
 
 ## Contributing
 
-[Add contributing guidelines here]
+To contribute to AgaPedia:
+
+1. Fork the repository
+2. Make your changes
+3. Test thoroughly
+4. Submit a pull request
+
+## License
+
+MediaWiki is free software licensed under GPL-2.0-or-later.
+See the MediaWiki documentation for license details.
+
+## Support
+
+For questions or issues:
+- Review documentation in this repository
+- Check MediaWiki.org for general MediaWiki questions
+- Consult GCP documentation for infrastructure questions
+
+---
+
+**Version:** 1.0.0  
+**MediaWiki Version:** 1.44.2  
+**Last Updated:** December 2024
 

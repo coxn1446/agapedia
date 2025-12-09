@@ -2907,7 +2907,7 @@ class Language implements Bcp47Code {
 	 * @return string The string with uppercase conversion applied to the first character
 	 */
 	public function ucfirst( $str ) {
-		$octetCode = ord( $str );
+		$octetCode = $str === '' ? 0 : ord( $str[0] );
 		// See https://en.wikipedia.org/wiki/ASCII#Printable_characters
 		if ( $octetCode < 96 ) {
 			// Assume this is an uppercase/uncased ASCII character
@@ -2953,7 +2953,7 @@ class Language implements Bcp47Code {
 	 * @return string The string with lowercase conversion applied to the first character
 	 */
 	public function lcfirst( $str ) {
-		$octetCode = ord( $str );
+		$octetCode = $str === '' ? 0 : ord( $str[0] );
 		// See https://en.wikipedia.org/wiki/ASCII#Printable_characters
 		if ( $octetCode < 96 ) {
 			// Assume this is an uppercase/uncased ASCII character
@@ -3476,14 +3476,32 @@ class Language implements Bcp47Code {
 		if ( $number === '' ) {
 			return $number;
 		}
-		if ( $number === (string)NAN ) {
+		// Check for NAN/INF - avoid (string)NAN conversion to prevent PHP 8.5 warnings
+		$nanStr = 'NAN';
+		$infStr = 'INF';
+		$ninfStr = '-INF';
+		if ( $number === $nanStr || $number === 'NaN' || $number === 'nan' ) {
 			return $this->msg( 'formatnum-nan' )->text();
 		}
-		if ( $number === (string)INF ) {
+		if ( $number === $infStr ) {
 			return "∞";
 		}
-		if ( $number === (string)-INF ) {
+		if ( $number === $ninfStr ) {
 			return "\u{2212}∞";
+		}
+		// Also check numeric values that might be NAN/INF
+		if ( is_numeric( $number ) ) {
+			$numValue = (float)$number;
+			if ( is_nan( $numValue ) ) {
+				return $this->msg( 'formatnum-nan' )->text();
+			}
+			if ( is_infinite( $numValue ) ) {
+				if ( $numValue > 0 ) {
+					return "∞";
+				} else {
+					return "\u{2212}∞";
+				}
+			}
 		}
 		if ( !is_numeric( $number ) ) {
 			# T267587: downgrade this to level:warn while we chase down the long

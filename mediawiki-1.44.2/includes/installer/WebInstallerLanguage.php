@@ -61,10 +61,10 @@ class WebInstallerLanguage extends WebInstallerPage {
 				}
 				$this->parent->showError( $msg, $wgLang->formatTimePeriod( $lifetime ) );
 			} else {
-				if ( isset( $languages[$userLang] ) ) {
+				if ( $userLang !== null && isset( $languages[$userLang] ) ) {
 					$this->setVar( '_UserLang', $userLang );
 				}
-				if ( isset( $languages[$contLang] ) ) {
+				if ( $contLang !== null && isset( $languages[$contLang] ) ) {
 					$this->setVar( 'wgLanguageCode', $contLang );
 				}
 
@@ -79,10 +79,10 @@ class WebInstallerLanguage extends WebInstallerPage {
 
 		$this->parent->setSession( 'test', true );
 
-		if ( !isset( $languages[$userLang] ) ) {
+		if ( $userLang === null || !isset( $languages[$userLang] ) ) {
 			$userLang = $this->getVar( '_UserLang', 'en' );
 		}
-		if ( !isset( $languages[$contLang] ) ) {
+		if ( $contLang === null || !isset( $languages[$contLang] ) ) {
 			$contLang = $this->getVar( 'wgLanguageCode', 'en' );
 		}
 		$this->startForm();

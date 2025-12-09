@@ -453,7 +453,9 @@ RLPAGEMODULES = {$pageModulesJson};
 				$rl->getLogger()->warning( 'Unknown module "{module}"', [ 'module' => $name ] );
 				continue;
 			}
-			$sortedModules[$module->getSource()][$module->getGroup()][$name] = $module;
+			$source = $module->getSource() ?? '';
+			$group = $module->getGroup() ?? '';
+			$sortedModules[$source][$group][$name] = $module;
 		}
 
 		foreach ( $sortedModules as $source => $groups ) {

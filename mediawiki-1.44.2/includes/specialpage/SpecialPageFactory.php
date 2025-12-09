@@ -1541,6 +1541,9 @@ class SpecialPageFactory {
 	public function exists( $name ) {
 		[ $title, /*...*/ ] = $this->resolveAlias( $name );
 
+		if ( $title === null ) {
+			return false;
+		}
 		$specialPageList = $this->getPageList();
 		return isset( $specialPageList[$title] );
 	}

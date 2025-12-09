@@ -1,0 +1,72 @@
+# .gcloudignore - Exclude unnecessary files from GCP deployment
+
+# Documentation
+docs/
+COPYING
+CREDITS
+FAQ
+HISTORY
+INSTALL
+README.md
+RELEASE-NOTES-*
+SECURITY
+UPGRADE
+
+# Tests
+tests/
+.phpunit.result.cache
+
+# Development files
+.git/
+.gitignore
+.gitattributes
+*.md
+composer.lock
+package.json
+package-lock.json
+node_modules/
+
+# Cache and temporary files
+cache/*
+!cache/.gitkeep
+images/temp/*
+!images/temp/.htaccess
+images/deleted
+images/lockdir/*
+
+# Local configuration (will be regenerated on server)
+LocalSettings.php
+
+# Build artifacts
+bundlesize.config.json
+jsdoc.json
+Gruntfile.js
+.jshintrc
+.eslintrc.json
+
+# Maintenance scripts we don't need on production
+maintenance/dev/
+maintenance/benchmarks/
+
+# Database dumps and backups
+*.sql
+*.sql.gz
+*.dump
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large vendor test files (keep vendor code but not tests)
+vendor/*/tests/
+vendor/*/test/
+vendor/*/*/tests/
+vendor/*/*/test/
+
